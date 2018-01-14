@@ -55,6 +55,10 @@ $route['translate_uri_dashes'] 			= FALSE;
 
 $route['blog'] 							= 'publik/blog';
 
+//menu routes
+$route['admin/menu'] 				= 'admin/menu';
+$route['admin/menu/create'] 		= 'admin/menu/create';
+$route['admin/menu/edit/(:any)'] 	= 'admin/menu/edit/$1';
 
 //categories routes
 $route['admin/categories'] 				= 'admin/categories';

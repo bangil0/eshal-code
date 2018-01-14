@@ -12,9 +12,10 @@ class MY_Controller extends CI_Controller {
         $this->load->config('eshal_code');
 
         // Set container variable
-        $this->_container 	= $this->config->item('eshal_code_template_dir_publik') . "layout.php";
-		$this->_containers 	= $this->config->item('eshal_code_template_dir_admin') . "layout.php";
-        $this->_modules 	= $this->config->item('modules_locations');
+        $this->_container 			= $this->config->item('eshal_code_template_dir_publik') . "layout.php";
+		$this->_containers 			= $this->config->item('eshal_code_template_dir_admin') . "layout.php";
+		$this->_containers_login 	= $this->config->item('eshal_code_template_dir_admin') . "layout_login.php";
+        $this->_modules 			= $this->config->item('modules_locations');
 
         log_message('debug', 'eSHal-Code : MY_Controller class loaded');
     }

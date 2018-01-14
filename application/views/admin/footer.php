@@ -45,7 +45,12 @@
 		<!-- ace scripts -->
 		<script src="<?php echo base_url();?>assets/admin/ace-master/js/ace-elements.min.js"></script>
 		<script src="<?php echo base_url();?>assets/admin/ace-master/js/ace.min.js"></script>
-
+		
+		<!-- Data Tables -->
+		<script src="<?php echo base_url();?>assets/admin/datatables/jquery.dataTables.min.js"></script>
+        <script src="<?php echo base_url();?>assets/admin/datatables/dataTables.bootstrap.min.js"></script>
+		
+		
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($) {
@@ -301,5 +306,18 @@
 			
 			})
 		</script>
+		<script>
+            $(function () {
+                $("#example1").DataTable();
+                $('#example2').DataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": false,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": false
+                });
+            });
+        </script>
 	</body>
 </html>
