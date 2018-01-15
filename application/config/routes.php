@@ -49,16 +49,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] 			= 'publik/dashboard';
+$route['default_controller'] 				= 'publik/dashboard';
 $route['404_override'] 					= '';
-$route['translate_uri_dashes'] 			= FALSE;
+$route['translate_uri_dashes'] 		= FALSE;
 
-$route['blog'] 							= 'publik/blog';
+$route['blog'] 								= 'publik/blog';
 
 //menu routes
-$route['admin/menu'] 				= 'admin/menu';
-$route['admin/menu/create'] 		= 'admin/menu/create';
+$route['admin/menu'] 					= 'admin/menu';
+$route['admin/menu/create'] 			= 'admin/menu/create';
 $route['admin/menu/edit/(:any)'] 	= 'admin/menu/edit/$1';
+
+//menu routes
+$route['admin/auth'] 						= 'admin/auth';
+$route['admin/auth/create'] 			= 'admin/auth/create';
+$route['admin/auth/edit/(:any)'] 		= 'admin/auth/edit/$1';
 
 //categories routes
 $route['admin/categories'] 				= 'admin/categories';

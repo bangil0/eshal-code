@@ -24,15 +24,15 @@
                             if($submenu->num_rows()>0){
                                 // tampilkan submenu
                                 echo "<li class='treeview'>
-                                    ".anchor('#',  "<i class='menu-icon $m->icon'></i>".strtoupper($m->name).' <i class="fa fa-angle-left pull-right"></i>')."
+                                    ".anchor('#',  "<i class='menu-icon $m->icon'></i>".ucfirst($m->name).' <i class="fa fa-angle-left pull-right"></i>')."
                                         <ul class='treeview-menu'>";
                                 foreach ($submenu->result() as $s){
-                                     echo "<li>" . anchor($s->link, "<i class='menu-icon $s->icon'></i> <span>" . strtoupper($s->name)) . "</span></li>";
+                                     echo "<li>" . anchor($s->link, "<i class='menu-icon $s->icon'></i> <span>" . ucfirst($s->name)) . "</span></li>";
                                 }
                                    echo"</ul>
                                     </li>";
                             }else{
-                                echo "<li>" . anchor($m->link, "<i class='menu-icon $m->icon'></i> " . strtolower($m->name)) . "</a></li>";
+                                echo "<li>" . anchor($m->link, "<i class='menu-icon $m->icon'></i> " . ucfirst($m->name)) . "</a></li>";
                             }                            
                         }                   
 					?>

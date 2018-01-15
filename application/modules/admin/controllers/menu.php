@@ -21,8 +21,7 @@ class Menu extends MY_Controller {
         }
     }
 
-    public function index()
-    {
+    public function index(){
         $menu = $this->Menu_model->get_all();
 
         $data = array(
@@ -39,33 +38,38 @@ class Menu extends MY_Controller {
         $row = $this->Menu_model->get_by_id($id);
         if ($row) {
             $data = array(
-		'id' => $row->id,
-		'name' => $row->name,
-		'link' => $row->link,
-		'icon' => $row->icon,
-		'is_active' => $row->is_active,
-		'is_parent' => $row->is_parent,
-	    );
-            $this->template->load('template','menu_read', $data);
+				'id' => $row->id,
+				'name' => $row->name,
+				'link' => $row->link,
+				'icon' => $row->icon,
+				'is_active' => $row->is_active,
+				'is_parent' => $row->is_parent,
+			);
+			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_menu_read";
+			$data['module'] = 'admin';
+			$this->load->view($this->_containers, $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('menu'));
         }
     }
 
-    public function create() 
-    {
-        $data = array(
-            'button' => 'Create',
-            'action' => site_url('menu/create_action'),
-	    'id' => set_value('id'),
-	    'name' => set_value('name'),
-	    'link' => set_value('link'),
-	    'icon' => set_value('icon'),
-	    'is_active' => set_value('is_active'),
-	    'is_parent' => set_value('is_parent'),
-	);
-        $this->template->load('template','menu_form', $data);
+    public function create() {
+		$data = array(
+            'button' => 'Tambah',
+            'action' => site_url('admin/menu/create_action'),
+			'id' => set_value('id'),
+			'name' => set_value('name'),
+			'link' => set_value('link'),
+			'icon' => set_value('icon'),
+			'is_active' => set_value('is_active'),
+			'is_parent' => set_value('is_parent'),
+		);
+
+		$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_menu_form";
+        $data['module'] = 'admin';
+        $this->load->view($this->_containers, $data);
+		
     }
     
     public function create_action() 
@@ -76,16 +80,16 @@ class Menu extends MY_Controller {
             $this->create();
         } else {
             $data = array(
-		'name' => $this->input->post('name',TRUE),
-		'link' => $this->input->post('link',TRUE),
-		'icon' => $this->input->post('icon',TRUE),
-		'is_active' => $this->input->post('is_active',TRUE),
-		'is_parent' => $this->input->post('is_parent',TRUE),
-	    );
+				'name' => $this->input->post('name',TRUE),
+				'link' => $this->input->post('link',TRUE),
+				'icon' => $this->input->post('icon',TRUE),
+				'is_active' => $this->input->post('is_active',TRUE),
+				'is_parent' => $this->input->post('is_parent',TRUE),
+			);
 
             $this->Menu_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('menu'));
+            redirect(site_url('admin/menu'));
         }
     }
     
@@ -96,15 +100,18 @@ class Menu extends MY_Controller {
         if ($row) {
             $data = array(
                 'button' => 'Update',
-                'action' => site_url('menu/update_action'),
-		'id' => set_value('id', $row->id),
-		'name' => set_value('name', $row->name),
-		'link' => set_value('link', $row->link),
-		'icon' => set_value('icon', $row->icon),
-		'is_active' => set_value('is_active', $row->is_active),
-		'is_parent' => set_value('is_parent', $row->is_parent),
-	    );
-            $this->template->load('template','menu_form', $data);
+                'action' => site_url('admin/menu/update_action'),
+				'id' => set_value('id', $row->id),
+				'name' => set_value('name', $row->name),
+				'link' => set_value('link', $row->link),
+				'icon' => set_value('icon', $row->icon),
+				'is_active' => set_value('is_active', $row->is_active),
+				'is_parent' => set_value('is_parent', $row->is_parent),
+			);
+			
+			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_menu_form";
+			$data['module'] = 'admin';
+			$this->load->view($this->_containers, $data);
         } else {
             $this->session->set_flashdata('message', 'Record Not Found');
             redirect(site_url('menu'));
@@ -119,16 +126,16 @@ class Menu extends MY_Controller {
             $this->update($this->input->post('id', TRUE));
         } else {
             $data = array(
-		'name' => $this->input->post('name',TRUE),
-		'link' => $this->input->post('link',TRUE),
-		'icon' => $this->input->post('icon',TRUE),
-		'is_active' => $this->input->post('is_active',TRUE),
-		'is_parent' => $this->input->post('is_parent',TRUE),
-	    );
+				'name' => $this->input->post('name',TRUE),
+				'link' => $this->input->post('link',TRUE),
+				'icon' => $this->input->post('icon',TRUE),
+				'is_active' => $this->input->post('is_active',TRUE),
+				'is_parent' => $this->input->post('is_parent',TRUE),
+			);
 
             $this->Menu_model->update($this->input->post('id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('menu'));
+            redirect(site_url('admin/menu'));
         }
     }
     
