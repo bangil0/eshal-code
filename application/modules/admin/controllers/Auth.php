@@ -49,7 +49,12 @@ class Auth extends MY_Controller
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('admin/auth', $this->data);
+			/* $this->_render_page('admin/auth', $this->data); */
+			
+			
+			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth";
+			$data['module'] = 'admin';
+			$this->load->view($this->_containers, $data);
 		}
 	}
 
@@ -170,7 +175,20 @@ class Auth extends MY_Controller
 			);
 
 			// render
-			$this->_render_page('admin/auth/change_password', $this->data);
+			/* $this->_render_page('admin/auth/change_password', $this->data); */
+			
+			$data = array(
+				'message' => 'aaaa',
+				'old_password'	=> 'a',
+				'min_password_length'	=> '3',
+				'new_password'				=> 'ab',
+				'new_password_confirm'	=> 'c',
+				'user_id'						=> '2',
+			);
+			
+			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_pass_change";
+			$data['module'] = 'admin';
+			$this->load->view($this->_containers, $data);
 		}
 		else
 		{
