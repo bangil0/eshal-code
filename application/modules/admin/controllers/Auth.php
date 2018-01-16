@@ -787,14 +787,14 @@ class Auth extends MY_Controller
 		// bail if no group id given
 		if (!$id || empty($id))
 		{
-			redirect('auth', 'refresh');
+			redirect('admin/auth', 'refresh');
 		}
 
 		$this->data['title'] = $this->lang->line('edit_group_title');
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('admin/auth', 'refresh');
 		}
 
 		$group = $this->ion_auth->group($id)->row();
@@ -816,7 +816,7 @@ class Auth extends MY_Controller
 				{
 					$this->session->set_flashdata('message', $this->ion_auth->errors());
 				}
-				redirect("auth", 'refresh');
+				redirect("admin/auth", 'refresh');
 			}
 		}
 
@@ -842,7 +842,7 @@ class Auth extends MY_Controller
 			'value' => $this->form_validation->set_value('group_description', $group->description),
 		);
 
-		$this->_render_page('auth/edit_group', $this->data);
+		$this->_render_page('admin/auth/edit_group', $this->data);
 	}
 
 	/**
