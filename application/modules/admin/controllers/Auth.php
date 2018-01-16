@@ -49,7 +49,7 @@ class Auth extends MY_Controller
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			/* $this->_render_page('admin/auth', $this->data); */
+			$data = $this->data;
 			
 			
 			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth";
@@ -173,18 +173,10 @@ class Auth extends MY_Controller
 				'type' => 'hidden',
 				'value' => $user->id,
 			);
-
+			
+			$data = $this->data;
 			// render
 			/* $this->_render_page('admin/auth/change_password', $this->data); */
-			
-			$data = array(
-				'message' => 'aaaa',
-				'old_password'	=> 'a',
-				'min_password_length'	=> '3',
-				'new_password'				=> 'ab',
-				'new_password_confirm'	=> 'c',
-				'user_id'						=> '2',
-			);
 			
 			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_pass_change";
 			$data['module'] = 'admin';
@@ -400,13 +392,13 @@ class Auth extends MY_Controller
 		{
 			// redirect them to the auth page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			redirect("admin/auth", 'refresh');
 		}
 		else
 		{
 			// redirect them to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect("admin/auth/forgot_password", 'refresh');
 		}
 	}
 
@@ -434,8 +426,11 @@ class Auth extends MY_Controller
 			// insert csrf check
 			$this->data['csrf'] = $this->_get_csrf_nonce();
 			$this->data['user'] = $this->ion_auth->user($id)->row();
-
-			$this->_render_page('auth/deactivate_user', $this->data);
+			
+			$data = $this->data;
+			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_user_deactivate";
+			$data['module'] = 'admin';
+			$this->load->view($this->_containers, $data);
 		}
 		else
 		{
@@ -456,7 +451,7 @@ class Auth extends MY_Controller
 			}
 
 			// redirect them back to the auth page
-			redirect('auth', 'refresh');
+			redirect('admin/auth', 'refresh');
 		}
 	}
 
@@ -469,7 +464,7 @@ class Auth extends MY_Controller
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('admin/auth', 'refresh');
 		}
 
 		$tables = $this->config->item('tables', 'ion_auth');
@@ -511,7 +506,7 @@ class Auth extends MY_Controller
 			// check to see if we are creating the user
 			// redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			redirect("admin/auth", 'refresh');
 		}
 		else
 		{
@@ -568,7 +563,10 @@ class Auth extends MY_Controller
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 
-			$this->_render_page('auth/create_user', $this->data);
+			$data = $this->data;
+			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_user_create";
+			$data['module'] = 'admin';
+			$this->load->view($this->_containers, $data);
 		}
 	}
 
@@ -652,7 +650,7 @@ class Auth extends MY_Controller
 					$this->session->set_flashdata('message', $this->ion_auth->messages());
 					if ($this->ion_auth->is_admin())
 					{
-						redirect('auth', 'refresh');
+						redirect('admin/auth', 'refresh');
 					}
 					else
 					{
@@ -666,7 +664,7 @@ class Auth extends MY_Controller
 					$this->session->set_flashdata('message', $this->ion_auth->errors());
 					if ($this->ion_auth->is_admin())
 					{
-						redirect('auth', 'refresh');
+						redirect('admin/auth', 'refresh');
 					}
 					else
 					{
@@ -724,7 +722,10 @@ class Auth extends MY_Controller
 			'type' => 'password'
 		);
 
-		$this->_render_page('auth/edit_user', $this->data);
+		$data = $this->data;
+		$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_edit";
+		$data['module'] = 'admin';
+		$this->load->view($this->_containers, $data);
 	}
 
 	/**
