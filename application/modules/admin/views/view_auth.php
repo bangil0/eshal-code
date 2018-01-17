@@ -11,9 +11,16 @@
 		</div>
 		<div class="page-content">
 			<div class="page-header">
-				<h1>User Management</h1>
+				<div class="row">
+					<div class="col-md-9">
+						<h1>User Management</h1>
+					</div>
+					<div class="col-md-3 text-right">
+						<?php echo anchor('admin/auth/create_user','Create',array('class'=>'btn btn-danger btn-sm'));?>
+					</div>		
+				</div>	
 			</div>
-			<div class="page-content">				
+			<div class="page-content">	
 				<table class="table table-bordered table-striped" id="mytable">
 					<tr>
 						<th><?php echo lang('index_fname_th');?></th>
@@ -38,8 +45,6 @@
 						</tr>
 					<?php endforeach;?>
 				</table>
-
-				<p><?php echo anchor('admin/auth/create_user', lang('index_create_user_link'))?> | <?php echo anchor('admin/auth/create_group', lang('index_create_group_link'))?></p>			
 			</div>
 		</div>
 	</div>

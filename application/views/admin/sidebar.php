@@ -23,11 +23,17 @@
                             $submenu = $this->db->get_where('menu',array('is_parent'=>$m->id,'is_active'=>1));
                             if($submenu->num_rows()>0){
                                 // tampilkan submenu
-                                echo "<li class='treeview'>
-                                    ".anchor('#',  "<i class='menu-icon $m->icon'></i>".ucfirst($m->name).' <i class="fa fa-angle-left pull-right"></i>')."
-                                        <ul class='treeview-menu'>";
+                                echo "
+								<li>
+									<a href='#' class='dropdown-toggle'>
+										<i class='menu-icon $m->icon'></i>
+											<span class='menu-text'> ".ucfirst($m->name)."</span>
+											<b class='arrow fa fa-angle-down'></b>
+										</a>
+										<b class='arrow'></b>
+                                        <ul class='submenu'>";
                                 foreach ($submenu->result() as $s){
-                                     echo "<li>" . anchor($s->link, "<i class='menu-icon $s->icon'></i> <span>" . ucfirst($s->name)) . "</span></li>";
+                                     echo "<li class=''>" . anchor($s->link, "<i class='menu-icon fa fa-caret-right'></i>" . ucfirst($s->name)) . "<b class='arrow'></b></li>";
                                 }
                                    echo"</ul>
                                     </li>";

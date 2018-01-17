@@ -57,7 +57,40 @@ class Auth extends MY_Controller
 			$this->load->view($this->_containers, $data);
 		}
 	}
+	
+	public function group()
+	{
 
+		if (!$this->ion_auth->logged_in())
+		{
+			// redirect them to the login page
+			redirect('admin/auth/login', 'refresh');
+		}
+		else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
+		{
+			// redirect them to the home page because they must be an administrator to view this
+			return show_error('You must be an administrator to view this page.');
+		}
+		else
+		{
+			// set the flash data error message if there is one
+			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+			//list the groups
+			$this->data['groups'] = $this->ion_auth->groups()->result();
+			foreach ($this->data['groups'] as $k => $group)
+			{
+				$this->data['groups'][$k]->groups = $this->ion_auth->get_users_groups($group->id)->result();
+			}
+
+			$data = $this->data;
+			
+			
+			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_group";
+			$data['module'] = 'admin';
+			$this->load->view($this->_containers, $data);
+		}
+	}
 	/**
 	 * Log the user in
 	 */
@@ -723,7 +756,7 @@ class Auth extends MY_Controller
 		);
 
 		$data = $this->data;
-		$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_edit";
+		$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_user_edit";
 		$data['module'] = 'admin';
 		$this->load->view($this->_containers, $data);
 	}
@@ -737,7 +770,7 @@ class Auth extends MY_Controller
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
-			redirect('auth', 'refresh');
+			redirect('admin/auth', 'refresh');
 		}
 
 		// validate form input
@@ -751,7 +784,7 @@ class Auth extends MY_Controller
 				// check to see if we are creating the group
 				// redirect them back to the admin page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth", 'refresh');
+				redirect("admin/auth", 'refresh');
 			}
 		}
 		else
@@ -773,7 +806,10 @@ class Auth extends MY_Controller
 				'value' => $this->form_validation->set_value('description'),
 			);
 
-			$this->_render_page('auth/create_group', $this->data);
+			$data = $this->data;
+			$data['page'] = $this->config->item('eshal_code_template_dir_admin') . "../view_auth_group_create";
+			$data['module'] = 'admin';
+			$this->load->view($this->_containers, $data);
 		}
 	}
 
